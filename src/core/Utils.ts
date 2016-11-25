@@ -18,7 +18,9 @@ export class Utils {
 //     console.log({ dividend: dividend, divisor: divisor, radian: radian, angle: angle });
 // }
 
-//坐标点
+/**
+ * 坐标点
+ */
 export class Point extends Phaser.Point {
 
   //获取两点间的中点
@@ -31,11 +33,6 @@ export class Point extends Phaser.Point {
     let
       AB = { x: B.x - A.x, y: B.y - A.y },
       CD = { x: D.x - C.x, y: D.y - C.y };
-    // if (AB.x * CD.y == CD.x * AB.y) {
-    //   console.log('----向量平行');
-    //   // return 0; //两个向量平行，角度设为0
-    // }
-
     let
       dividend = AB.x * CD.x + AB.y * CD.y,
       divisor = Math.sqrt(Math.pow(AB.x, 2) + Math.pow(AB.y, 2)) * Math.sqrt(Math.pow(CD.x, 2) + Math.pow(CD.y, 2)), //[注]这里可能出现dividend=549，divisor=548.99999999的情况，其实此时他们应该是相等才对，所以导致出现divide>1的情况，从而导致acos()返回NaN
@@ -47,16 +44,6 @@ export class Point extends Phaser.Point {
     console.log(`[getAngleBetween]dividend=${dividend}, divisor=${divisor}, radian=${radian}`);
     return angle;
   }
-
-  // //获取两线段（向量）间的夹角（由4个点代表）
-  // static getAngleBetween(A: Point, B: Point, C: Point, D: Point): number {
-  //   let
-  //     AB = new Point(B.x - A.x, B.y - A.y),
-  //     CD = new Point(D.x - C.x, D.y - C.y),
-  //     radian = Math.abs(Point.angle(AB, CD)),
-  //     angle = (radian * 180) / Math.PI;
-  //   return angle;
-  // }
 
   /**
    * 通过精度进行过滤，从而仅保留关键点
