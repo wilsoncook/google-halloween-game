@@ -14,7 +14,7 @@ export class Preloader extends State {
     //TODO
     //加载各种资源（图片、音频）
     //[Player]
-    this.game.load.atlasJSONArray('Player', `${imageFolder}/player-waiting.png`, `${imageFolder}/player-waiting.json`);
+    this.game.load.atlasJSONArray('Player', `${imageFolder}/player.png`, `${imageFolder}/player.json`);
   }
 
   create() {

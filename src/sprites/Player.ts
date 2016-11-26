@@ -1,5 +1,5 @@
 import { Sprite } from '../core/Sprite';
-import { Point } from '../core/Utils';
+import { Point, Utils } from '../core/Utils';
 import { LineProcessor } from '../lib/LineProcessor';
 
 export class Player extends Sprite {
@@ -26,32 +26,45 @@ export class Player extends Sprite {
 
   //初始化创建动画
   private initializeAnimations() {
+    let animations = this.sprite.animations, frameRate = 60;
     //等待状态
-    let waiting: string[] = [
-      'w-1.png', 'w-1.png', 'w-1.png', 'w-1.png', 'w-1.png', 'w-1.png', 'w-1.png', 'w-1.png', 'w-1.png', 'w-1.png', 'w-1.png', 'w-1.png', 'w-1.png', 'w-1.png', 'w-1.png', 'w-1.png', 'w-1.png', 'w-1.png', 'w-1.png', 'w-1.png', 'w-1.png', 'w-1.png', 'w-1.png', 'w-1.png', 'w-1.png', 
-      'w-2.png', 'w-2.png', 'w-2.png', 'w-2.png', 'w-2.png', 
-      'w-3.png', 'w-3.png', 'w-3.png', 'w-3.png', 'w-3.png', 
-      'w-4.png', 'w-4.png', 'w-4.png', 'w-4.png', 
-      'w-5.png', 'w-5.png', 'w-5.png', 'w-5.png', 'w-5.png', 
-      'w-6.png', 'w-6.png', 'w-6.png', 'w-6.png', 'w-6.png', 'w-6.png', 'w-6.png', 'w-6.png', 'w-6.png', 'w-6.png', 'w-6.png', 'w-6.png', 'w-6.png', 'w-6.png', 'w-6.png', 
-      'w-5.png', 'w-5.png', 'w-5.png', 'w-5.png', 'w-5.png', 'w-5.png', 
-      'w-4.png', 'w-4.png', 'w-4.png', 'w-4.png', 'w-4.png', 
-      'w-3.png', 'w-3.png', 'w-3.png', 'w-3.png', 'w-3.png', 
-      'w-2.png', 'w-2.png', 'w-2.png', 'w-2.png', 'w-2.png', //注，这里可能是w-12
-      'w-1.png', 'w-1.png', 'w-1.png', 'w-1.png', 'w-1.png', 'w-1.png', 'w-1.png', 'w-1.png', 'w-1.png', 'w-1.png', 
-      'w-7.png', 'w-7.png', 'w-7.png', 'w-7.png', 'w-7.png', 
-      'w-8.png', 'w-8.png', 'w-8.png', 'w-8.png', 'w-8.png', 
-      'w-9.png', 'w-9.png', 'w-9.png', 'w-9.png', 'w-9.png', 
-      'w-10.png', 'w-10.png', 'w-10.png', 'w-10.png', 'w-10.png', 
-      'w-11.png', 'w-11.png', 'w-11.png', 'w-11.png', 'w-11.png', 'w-11.png', 'w-11.png', 'w-11.png', 'w-11.png', 'w-11.png', 'w-11.png', 'w-11.png', 'w-11.png', 'w-11.png', 'w-11.png', 
-      'w-10.png', 'w-10.png', 'w-10.png', 'w-10.png', 'w-10.png', 
-      'w-9.png', 'w-9.png', 'w-9.png', 'w-9.png', 'w-9.png', 
-      'w-8.png', 'w-8.png', 'w-8.png', 'w-8.png', 'w-8.png', 
-      'w-7.png', 'w-7.png', 'w-7.png', 'w-7.png', 'w-7.png'
-    ];
-    this.sprite.animations.add('waiting', waiting, 60, true, true);
+    let waiting: string[] = Utils.concatRepeat([], 'waiting/1', 25, 'waiting/2', 5, 'waiting/3', 5, 'waiting/4', 4, 'waiting/5', 5, 'waiting/6', 15, 'waiting/5', 6, 'waiting/4', 5, 'waiting/3', 5, 'waiting/2', 5, 'waiting/1', 10, 'waiting/7', 5, 'waiting/8', 5, 'waiting/9', 5, 'waiting/10', 5, 'waiting/11', 15, 'waiting/10', 5, 'waiting/9', 5, 'waiting/8', 5, 'waiting/7', 5);
+    animations.add('waiting', waiting, frameRate, true);
+    //scared状态
+    animations.add('scared', Utils.concatRepeat([], 'scared/1', 5, 'scared/2', 5, 'scared/3', 1), frameRate, false);
+    //施法中状态
+    animations.add('drawing', Utils.concatRepeat([], 'drawing/1', 5, 'drawing/2', 5, 'drawing/3', 4, 'drawing/4', 5, 'drawing/5', 5, 'drawing/6', 5), frameRate, true);
+    //画横线（结束后需立马跳转到waiting）
+    let drawHorizontal = animations.add('draw-horizontal', Utils.concatRepeat([], 'draw-horizontal/1', 8, 'draw-horizontal/2', 6, 'draw-horizontal/3', 5, 'draw-horizontal/4', 5, 'draw-horizontal/5', 5), frameRate, false);
+    drawHorizontal.onComplete.add(() => { console.log('-----drawHorizontal on complete'); animations.play('waiting'); });
+    //画竖线
+    let drawVertical = animations.add('draw-vertical', Utils.concatRepeat([], 'draw-vertical/1', 5, 'draw-vertical/2', 5, 'draw-vertical/3', 5, 'draw-vertical/4', 5, 'draw-vertical/5', 5), frameRate, false);
+    drawVertical.onComplete.add(() => animations.play('waiting'));
+    //画上凸bugle
+    let drawBugle = animations.add('draw-bugle', Utils.concatRepeat([], 'draw-bugle/1', 9, 'draw-bugle/2', 5, 'draw-bugle/3', 5, 'draw-bugle/4', 5, 'draw-bugle/5', 5), frameRate, false);
+    drawBugle.onComplete.add(() => animations.play('waiting'));
+    //画下凹sunken
+    let drawSunken = animations.add('draw-sunken', Utils.concatRepeat([], 'draw-sunken/1', 9, 'draw-sunken/2', 5, 'draw-sunken/3', 5, 'draw-sunken/4', 5, 'draw-sunken/5', 5), frameRate, false);
+    drawSunken.onComplete.add(() => animations.play('waiting'));
+    //画闪电lightning
+    let drawLightning = animations.add('draw-lightning', Utils.concatRepeat([], 'draw-lightning/1', 10, 'draw-lightning/2', 4, 'draw-lightning/3', 5, 'draw-lightning/4', 5, 'draw-lightning/5', 5), frameRate, false);
+    drawLightning.onComplete.add(() => animations.play('waiting'));
+    //画桃心heart
+    let drawHeart = animations.add('draw-heart', Utils.concatRepeat([], 'draw-heart/1', 9, 'draw-heart/2', 5, 'draw-heart/3', 5, 'draw-heart/4', 5, 'draw-heart/5', 5), frameRate, false);
+    drawHeart.onComplete.add(() => animations.play('waiting'));
+
     //test
-    this.sprite.animations.play('waiting');
+    animations.play('waiting');
+    let gap  = 2000;
+    setTimeout(() => animations.play('scared'), gap * 1);
+    setTimeout(() => animations.play('drawing'), gap * 2);
+    setTimeout(() => animations.play('draw-horizontal'), gap * 3);
+    setTimeout(() => animations.play('draw-horizontal'), gap * 4);
+    setTimeout(() => animations.play('draw-vertical'), gap * 5);
+    setTimeout(() => animations.play('draw-bugle'), gap * 6);
+    setTimeout(() => animations.play('draw-sunken'), gap * 7);
+    setTimeout(() => animations.play('draw-lightning'), gap * 8);
+    setTimeout(() => animations.play('draw-heart'), gap * 9);
   }
 
   //创建画板对象

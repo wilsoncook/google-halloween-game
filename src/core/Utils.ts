@@ -1,8 +1,26 @@
+
 /**
  * 静态功能性方法
  */
 export class Utils {
   
+  /**
+   * 将重复生成的多个元素与原数组连接，将改变并返回原数组
+   * @param  {any[]} origin
+   * @param  {T} value
+   * @param  {number=1} repeat
+   */
+  static concatRepeat<T>(origin: any[], ...repeaters: any[]): any[] {
+    if (repeaters.length % 2 != 0) { throw new Error('参数格式不正确'); }
+    for (let i = 0, len = repeaters.length; i < len; i += 2) {
+      let value = repeaters[i], repeat = repeaters[i + 1];
+      for (let j = 0; j < repeat; j++) {
+        origin.push(value);
+      }
+    }
+    return origin;
+  }
+
 }
 
 // //test
