@@ -52,6 +52,11 @@ export class Player extends Sprite {
     //画桃心heart
     let drawHeart = animations.add('draw-heart', Utils.concatRepeat([], 'draw-heart/1', 9, 'draw-heart/2', 5, 'draw-heart/3', 5, 'draw-heart/4', 5, 'draw-heart/5', 5), frameRate, false);
     drawHeart.onComplete.add(() => animations.play('waiting'));
+    //受伤hurt
+    let hurt = animations.add('hurt', Utils.concatRepeat([], 'hurt/1', 4, 'hurt/2', 5, 'hurt/3', 5, 'hurt/4', 7), frameRate, false);
+    hurt.onComplete.add(() => animations.play('waiting'));
+    //胜利victory
+    animations.add('victory', Utils.concatRepeat([], 'victory/1', 9, 'victory/2', 5, 'victory/3', 5, 'victory/4', 5, 'victory/5', 5, 'victory/6', 5, 'victory/7', 5, 'victory/8', 5, 'victory/9', 5, 'victory/10', 5, 'victory/11', 5, 'victory/12', 5, 'victory/13', 5, 'victory/14', 5, 'victory/15', 5, 'victory/16', 5, 'victory/17', 5, 'victory/18', 1), frameRate, false);
 
     //test
     animations.play('waiting');
@@ -65,6 +70,8 @@ export class Player extends Sprite {
     setTimeout(() => animations.play('draw-sunken'), gap * 7);
     setTimeout(() => animations.play('draw-lightning'), gap * 8);
     setTimeout(() => animations.play('draw-heart'), gap * 9);
+    setTimeout(() => animations.play('hurt'), gap * 10);
+    setTimeout(() => animations.play('victory'), gap * 11);
   }
 
   //创建画板对象
