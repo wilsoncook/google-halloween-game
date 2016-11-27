@@ -1,4 +1,4 @@
-import { State } from '../core/State';
+import { State } from '../core/state/State';
 
 /**
  * 游戏初始化，设置相关配置

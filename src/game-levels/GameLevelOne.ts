@@ -1,6 +1,6 @@
 import { GameLevel } from '../core/GameLevel';
 
-import { Player } from '../sprites/Player';
+import { Player } from '../players/Player';
 
 /**
  * 第一关

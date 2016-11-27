@@ -1,6 +1,6 @@
-import { State } from '../core/State';
+import { State } from '../core/state/State';
 
-const imageFolder = '../assets/images';
+const IMAGE_FOLDER = '../assets/images';
 
 /**
  * [场景]开始前的加载
@@ -14,7 +14,9 @@ export class Preloader extends State {
     //TODO
     //加载各种资源（图片、音频）
     //[Player]
-    this.game.load.atlasJSONArray('Player', `${imageFolder}/player.png`, `${imageFolder}/player.json`);
+    this.game.load.atlasJSONArray('Player', `${IMAGE_FOLDER}/player.png`, `${IMAGE_FOLDER}/player.json`);
+    //[Ghost/Fresher]
+    this.game.load.atlasJSONArray('Fresher', `${IMAGE_FOLDER}/fresher.png`, `${IMAGE_FOLDER}/fresher.json`);
   }
 
   create() {

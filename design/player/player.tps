@@ -197,6 +197,112 @@
         </struct>
         <key>individualSpriteSettings</key>
         <map type="IndividualSpriteSettingsMap">
+            <key type="filename">fixed-images/draw-bugle/1.png</key>
+            <key type="filename">fixed-images/draw-bugle/2.png</key>
+            <key type="filename">fixed-images/draw-bugle/3.png</key>
+            <key type="filename">fixed-images/draw-bugle/4.png</key>
+            <key type="filename">fixed-images/draw-bugle/5.png</key>
+            <key type="filename">fixed-images/draw-lightning/1.png</key>
+            <key type="filename">fixed-images/draw-lightning/2.png</key>
+            <key type="filename">fixed-images/draw-lightning/3.png</key>
+            <key type="filename">fixed-images/draw-lightning/4.png</key>
+            <key type="filename">fixed-images/draw-lightning/5.png</key>
+            <key type="filename">fixed-images/draw-sunken/1.png</key>
+            <key type="filename">fixed-images/draw-sunken/2.png</key>
+            <key type="filename">fixed-images/draw-sunken/3.png</key>
+            <key type="filename">fixed-images/draw-sunken/4.png</key>
+            <key type="filename">fixed-images/draw-sunken/5.png</key>
+            <struct type="IndividualSpriteSettings">
+                <key>pivotPoint</key>
+                <point_f>0.5,0.5</point_f>
+                <key>scale9Enabled</key>
+                <false/>
+                <key>scale9Borders</key>
+                <rect>45,38,90,75</rect>
+                <key>scale9Paddings</key>
+                <rect>45,38,90,75</rect>
+                <key>scale9FromFile</key>
+                <false/>
+            </struct>
+            <key type="filename">fixed-images/draw-heart/1.png</key>
+            <key type="filename">fixed-images/draw-heart/2.png</key>
+            <key type="filename">fixed-images/draw-heart/3.png</key>
+            <key type="filename">fixed-images/draw-heart/4.png</key>
+            <key type="filename">fixed-images/draw-heart/5.png</key>
+            <key type="filename">fixed-images/hurt/1.png</key>
+            <key type="filename">fixed-images/hurt/2.png</key>
+            <key type="filename">fixed-images/hurt/3.png</key>
+            <key type="filename">fixed-images/hurt/4.png</key>
+            <key type="filename">fixed-images/victory/1.png</key>
+            <key type="filename">fixed-images/victory/10.png</key>
+            <key type="filename">fixed-images/victory/11.png</key>
+            <key type="filename">fixed-images/victory/12.png</key>
+            <key type="filename">fixed-images/victory/13.png</key>
+            <key type="filename">fixed-images/victory/14.png</key>
+            <key type="filename">fixed-images/victory/15.png</key>
+            <key type="filename">fixed-images/victory/16.png</key>
+            <key type="filename">fixed-images/victory/17.png</key>
+            <key type="filename">fixed-images/victory/18.png</key>
+            <key type="filename">fixed-images/victory/2.png</key>
+            <key type="filename">fixed-images/victory/3.png</key>
+            <key type="filename">fixed-images/victory/4.png</key>
+            <key type="filename">fixed-images/victory/5.png</key>
+            <key type="filename">fixed-images/victory/6.png</key>
+            <key type="filename">fixed-images/victory/7.png</key>
+            <key type="filename">fixed-images/victory/8.png</key>
+            <key type="filename">fixed-images/victory/9.png</key>
+            <struct type="IndividualSpriteSettings">
+                <key>pivotPoint</key>
+                <point_f>0.5,0.5</point_f>
+                <key>scale9Enabled</key>
+                <false/>
+                <key>scale9Borders</key>
+                <rect>48,43,95,85</rect>
+                <key>scale9Paddings</key>
+                <rect>48,43,95,85</rect>
+                <key>scale9FromFile</key>
+                <false/>
+            </struct>
+            <key type="filename">fixed-images/draw-horizontal/1.png</key>
+            <key type="filename">fixed-images/draw-horizontal/2.png</key>
+            <key type="filename">fixed-images/draw-horizontal/3.png</key>
+            <key type="filename">fixed-images/draw-horizontal/4.png</key>
+            <key type="filename">fixed-images/draw-horizontal/5.png</key>
+            <key type="filename">fixed-images/draw-vertical/1.png</key>
+            <key type="filename">fixed-images/draw-vertical/2.png</key>
+            <key type="filename">fixed-images/draw-vertical/3.png</key>
+            <key type="filename">fixed-images/draw-vertical/4.png</key>
+            <key type="filename">fixed-images/draw-vertical/5.png</key>
+            <struct type="IndividualSpriteSettings">
+                <key>pivotPoint</key>
+                <point_f>0.5,0.5</point_f>
+                <key>scale9Enabled</key>
+                <false/>
+                <key>scale9Borders</key>
+                <rect>45,30,90,60</rect>
+                <key>scale9Paddings</key>
+                <rect>45,30,90,60</rect>
+                <key>scale9FromFile</key>
+                <false/>
+            </struct>
+            <key type="filename">fixed-images/drawing/1.png</key>
+            <key type="filename">fixed-images/drawing/2.png</key>
+            <key type="filename">fixed-images/drawing/3.png</key>
+            <key type="filename">fixed-images/drawing/4.png</key>
+            <key type="filename">fixed-images/drawing/5.png</key>
+            <key type="filename">fixed-images/drawing/6.png</key>
+            <struct type="IndividualSpriteSettings">
+                <key>pivotPoint</key>
+                <point_f>0.5,0.5</point_f>
+                <key>scale9Enabled</key>
+                <false/>
+                <key>scale9Borders</key>
+                <rect>38,38,75,75</rect>
+                <key>scale9Paddings</key>
+                <rect>38,38,75,75</rect>
+                <key>scale9FromFile</key>
+                <false/>
+            </struct>
             <key type="filename">fixed-images/scared/1.png</key>
             <key type="filename">fixed-images/scared/2.png</key>
             <key type="filename">fixed-images/scared/3.png</key>
