@@ -1,30 +1,32 @@
-import { Sprite } from '../core/sprite/Sprite';
+import Sprite from '../core/sprite/Sprite';
 import { Point, Utils } from '../core/Utils';
 import { LineProcessor } from '../lib/LineProcessor';
 
-export class Player extends Sprite {
+class Player extends Sprite {
   
   private processor: LineProcessor = null; //当前画线处理器，用于记录每次画线的线段（有值则代表当前正处于画线中）
   private pallete: Phaser.BitmapData; //画板对象，用于画线
 
-  //设置
-  protected setConfig() {
-    return {
-      spriteKey: 'Player',
-      x: 200,
-      y: 200
-    };
-  }
+  // //设置
+  // static config = {
+  //   spriteKey: 'Player',
+  //   x: 400,
+  //   y: 200
+  // };
 
   constructor(game: Phaser.Game) {
-    super(game);
+    super(game, 400, 200, 'Player');
+    this.body.immovable = true;
     //创建画板
     this.pallete = this.createPallete();
+    //test
+    // this.game.physics.arcade.enable(this);
+    this.body.setSize(20, 20, 100, 100);
   }
 
   //初始化创建动画
   protected initializeAnimations() {
-    let animations = this.sprite.animations, frameRate = Sprite.defaultRate; //默认频率
+    let animations = this.animations, frameRate = Sprite.defaultRate; //默认频率
     //等待状态
     animations.add('waiting', Utils.concatRepeat([], 'waiting/1', 25, 'waiting/2', 5, 'waiting/3', 5, 'waiting/4', 4, 'waiting/5', 5, 'waiting/6', 15, 'waiting/5', 6, 'waiting/4', 5, 'waiting/3', 5, 'waiting/2', 5, 'waiting/1', 10, 'waiting/7', 5, 'waiting/8', 5, 'waiting/9', 5, 'waiting/10', 5, 'waiting/11', 15, 'waiting/10', 5, 'waiting/9', 5, 'waiting/8', 5, 'waiting/7', 5), frameRate, true);
     //scared状态
@@ -56,6 +58,9 @@ export class Player extends Sprite {
     animations.add('victory', Utils.concatRepeat([], 'victory/1', 9, 'victory/2', 5, 'victory/3', 5, 'victory/4', 5, 'victory/5', 5, 'victory/6', 5, 'victory/7', 5, 'victory/8', 5, 'victory/9', 5, 'victory/10', 5, 'victory/11', 5, 'victory/12', 5, 'victory/13', 5, 'victory/14', 5, 'victory/15', 5, 'victory/16', 5, 'victory/17', 5, 'victory/18', 1), frameRate, false);
 
     //test
+    // console.log('----xxx', this.x, this.y, this.width, this.height, this.anchor);
+    // this.crop(new Phaser.Rectangle(30, 30, 100, 100), false);
+    // console.log('----ffff', this.x, this.y, this.width, this.height, this.anchor);
     animations.play('waiting');
     let gap  = 2000;
     setTimeout(() => animations.play('scared'), gap * 1);
@@ -129,4 +134,6 @@ export class Player extends Sprite {
     return pallete;
   }
 
-};
+}
+
+export default Player;

@@ -16,7 +16,7 @@ export class Preloader extends State {
     //[Player]
     this.game.load.atlasJSONArray('Player', `${IMAGE_FOLDER}/player.png`, `${IMAGE_FOLDER}/player.json`);
     //[Ghost/Fresher]
-    this.game.load.atlasJSONArray('Fresher', `${IMAGE_FOLDER}/fresher.png`, `${IMAGE_FOLDER}/fresher.json`);
+    this.game.load.atlasJSONArray('Ghost.Fresher', `${IMAGE_FOLDER}/ghost-fresher.png`, `${IMAGE_FOLDER}/ghost-fresher.json`);
   }
 
   create() {

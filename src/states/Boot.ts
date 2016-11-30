@@ -16,7 +16,7 @@ export class Boot extends State {
       //TODO
     }
     //默认背景
-    this.game.stage.setBackgroundColor('0xFFFFFF');
+    this.game.stage.setBackgroundColor('0xCCCCCC');
   }
 
   preload() {

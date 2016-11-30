@@ -2,7 +2,7 @@
 /**
  * 静态功能性方法
  */
-export class Utils {
+class Utils {
   
   /**
    * 将重复生成的多个元素与原数组连接，将改变并返回原数组
@@ -39,7 +39,7 @@ export class Utils {
 /**
  * 坐标点
  */
-export class Point extends Phaser.Point {
+class Point extends Phaser.Point {
 
   //获取两点间的中点
   static getMiddlePoint(p1: Point, p2: Point): Point {
@@ -94,3 +94,6 @@ export class Point extends Phaser.Point {
   }
 
 }
+
+export default Utils;
+export { Utils, Point };
