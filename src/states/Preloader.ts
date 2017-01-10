@@ -1,26 +1,40 @@
-import { State } from '../core/state/State';
-
-const IMAGE_FOLDER = '../assets/images';
+import State from '../core/state/State';
 
 /**
  * [场景]开始前的加载
  */
-export class Preloader extends State {
+class Preloader extends State {
 
   private ready: boolean = false; //标记是否已全部加载完毕
 
   preload() {
     //显示 背景、加载进度条
     //TODO
+
     //加载各种资源（图片、音频）
-    //[Player]
-    this.game.load.atlasJSONArray('Player', `${IMAGE_FOLDER}/player.png`, `${IMAGE_FOLDER}/player.json`);
-    //[Ghost/Fresher]
-    this.game.load.atlasJSONArray('Ghost.Fresher', `${IMAGE_FOLDER}/ghost-fresher.png`, `${IMAGE_FOLDER}/ghost-fresher.json`);
+    //[音频]
+    this.game.audio.preload();
+    //[atlas]
+    this.loadAtlases({
+      //[杂项]
+      'Misc': 'misc',
+      //[背景图片]
+      'Background': 'background',
+      //[Player]
+      'Player': 'player',
+      //[Ghost/Fresher]
+      'GhostFresher': 'ghost-fresher'
+    });
+
+    //测试按钮
+    this.game.load.spritesheet('button', 'assets/images/flixel-button.png', 80, 20)
   }
 
   create() {
-    this.state.start('GameLevelOne'); //开启第一关
+    //音频创建
+    this.game.audio.create();
+    //开启第一关
+    this.state.start('GameLevel');
   }
 
   update() {
@@ -39,3 +53,5 @@ export class Preloader extends State {
   }
 
 }
+
+export default Preloader;

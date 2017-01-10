@@ -23,19 +23,6 @@ class Utils {
 
 }
 
-// //test
-// function test() {
-//   var A = { x: 556, y: 125 }, B = { x: 544, y: 137 }, C = { x: 556, y: 137 }, D = { x: 534, y: 147 };
-//   var
-//       AB = { x: B.x - A.x, y: B.y - A.y },
-//       CD = { x: D.x - C.x, y: D.y - C.y },
-//       dividend = AB.x * CD.x + AB.y * CD.y,
-//       divisor = Math.sqrt(Math.pow(AB.x, 2) + Math.pow(AB.y, 2)) * Math.sqrt(Math.pow(CD.x, 2) + Math.pow(CD.y, 2)),
-//       radian = Math.acos(dividend / divisor),
-//       angle = radian * 180 / Math.PI;
-//     console.log({ dividend: dividend, divisor: divisor, radian: radian, angle: angle });
-// }
-
 /**
  * 坐标点
  */
@@ -59,7 +46,7 @@ class Point extends Phaser.Point {
     let
       radian = Math.acos(divide),
       angle = radian * 180 / Math.PI;
-    console.log(`[getAngleBetween]dividend=${dividend}, divisor=${divisor}, radian=${radian}`);
+    // console.log(`[getAngleBetween]dividend=${dividend}, divisor=${divisor}, radian=${radian}`);
     return angle;
   }
 

@@ -1,0 +1,29 @@
+import Ghost from '../core/sprite/Ghost';
+import Fresher from '../ghosts/Fresher';
+
+/**
+ * ghost制造工厂
+ */
+class GhostFactory {
+
+  static _game: Phaser.
+  
+  static types = {
+    'Fresher': Fresher
+  };
+
+  static create(name: string) {
+    let ghostClass = this.types[name];
+    if (ghostClass) {
+      return new ghostClass();
+    }
+  }
+
+  static get game() {
+    return this._game;
+  }
+
+}
+
+
+export default GhostFactory;

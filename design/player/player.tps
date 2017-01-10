@@ -197,33 +197,22 @@
         </struct>
         <key>individualSpriteSettings</key>
         <map type="IndividualSpriteSettingsMap">
-            <key type="filename">fixed-images/draw-bugle/1.png</key>
-            <key type="filename">fixed-images/draw-bugle/2.png</key>
-            <key type="filename">fixed-images/draw-bugle/3.png</key>
-            <key type="filename">fixed-images/draw-bugle/4.png</key>
-            <key type="filename">fixed-images/draw-bugle/5.png</key>
-            <key type="filename">fixed-images/draw-lightning/1.png</key>
-            <key type="filename">fixed-images/draw-lightning/2.png</key>
-            <key type="filename">fixed-images/draw-lightning/3.png</key>
-            <key type="filename">fixed-images/draw-lightning/4.png</key>
-            <key type="filename">fixed-images/draw-lightning/5.png</key>
-            <key type="filename">fixed-images/draw-sunken/1.png</key>
-            <key type="filename">fixed-images/draw-sunken/2.png</key>
-            <key type="filename">fixed-images/draw-sunken/3.png</key>
-            <key type="filename">fixed-images/draw-sunken/4.png</key>
-            <key type="filename">fixed-images/draw-sunken/5.png</key>
-            <struct type="IndividualSpriteSettings">
-                <key>pivotPoint</key>
-                <point_f>0.5,0.5</point_f>
-                <key>scale9Enabled</key>
-                <false/>
-                <key>scale9Borders</key>
-                <rect>45,38,90,75</rect>
-                <key>scale9Paddings</key>
-                <rect>45,38,90,75</rect>
-                <key>scale9FromFile</key>
-                <false/>
-            </struct>
+            <key type="filename">fixed-images/die/1.png</key>
+            <key type="filename">fixed-images/die/10.png</key>
+            <key type="filename">fixed-images/die/11.png</key>
+            <key type="filename">fixed-images/die/12.png</key>
+            <key type="filename">fixed-images/die/13.png</key>
+            <key type="filename">fixed-images/die/14.png</key>
+            <key type="filename">fixed-images/die/15.png</key>
+            <key type="filename">fixed-images/die/16.png</key>
+            <key type="filename">fixed-images/die/2.png</key>
+            <key type="filename">fixed-images/die/3.png</key>
+            <key type="filename">fixed-images/die/4.png</key>
+            <key type="filename">fixed-images/die/5.png</key>
+            <key type="filename">fixed-images/die/6.png</key>
+            <key type="filename">fixed-images/die/7.png</key>
+            <key type="filename">fixed-images/die/8.png</key>
+            <key type="filename">fixed-images/die/9.png</key>
             <key type="filename">fixed-images/draw-heart/1.png</key>
             <key type="filename">fixed-images/draw-heart/2.png</key>
             <key type="filename">fixed-images/draw-heart/3.png</key>
@@ -233,6 +222,12 @@
             <key type="filename">fixed-images/hurt/2.png</key>
             <key type="filename">fixed-images/hurt/3.png</key>
             <key type="filename">fixed-images/hurt/4.png</key>
+            <key type="filename">fixed-images/run/1.png</key>
+            <key type="filename">fixed-images/run/2.png</key>
+            <key type="filename">fixed-images/run/3.png</key>
+            <key type="filename">fixed-images/run/4.png</key>
+            <key type="filename">fixed-images/run/5.png</key>
+            <key type="filename">fixed-images/run/6.png</key>
             <key type="filename">fixed-images/victory/1.png</key>
             <key type="filename">fixed-images/victory/10.png</key>
             <key type="filename">fixed-images/victory/11.png</key>
@@ -260,6 +255,33 @@
                 <rect>48,43,95,85</rect>
                 <key>scale9Paddings</key>
                 <rect>48,43,95,85</rect>
+                <key>scale9FromFile</key>
+                <false/>
+            </struct>
+            <key type="filename">fixed-images/draw-bugle/1.png</key>
+            <key type="filename">fixed-images/draw-bugle/2.png</key>
+            <key type="filename">fixed-images/draw-bugle/3.png</key>
+            <key type="filename">fixed-images/draw-bugle/4.png</key>
+            <key type="filename">fixed-images/draw-bugle/5.png</key>
+            <key type="filename">fixed-images/draw-lightning/1.png</key>
+            <key type="filename">fixed-images/draw-lightning/2.png</key>
+            <key type="filename">fixed-images/draw-lightning/3.png</key>
+            <key type="filename">fixed-images/draw-lightning/4.png</key>
+            <key type="filename">fixed-images/draw-lightning/5.png</key>
+            <key type="filename">fixed-images/draw-sunken/1.png</key>
+            <key type="filename">fixed-images/draw-sunken/2.png</key>
+            <key type="filename">fixed-images/draw-sunken/3.png</key>
+            <key type="filename">fixed-images/draw-sunken/4.png</key>
+            <key type="filename">fixed-images/draw-sunken/5.png</key>
+            <struct type="IndividualSpriteSettings">
+                <key>pivotPoint</key>
+                <point_f>0.5,0.5</point_f>
+                <key>scale9Enabled</key>
+                <false/>
+                <key>scale9Borders</key>
+                <rect>45,38,90,75</rect>
+                <key>scale9Paddings</key>
+                <rect>45,38,90,75</rect>
                 <key>scale9FromFile</key>
                 <false/>
             </struct>

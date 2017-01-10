@@ -1,4 +1,4 @@
-import Ghost from '../core/sprite/Ghost';
+import { Ghost, GhostOptions } from '../core/sprite/Ghost';
 import Utils from '../core/Utils';
 import Player from '../players/Player';
 
@@ -7,57 +7,70 @@ import Player from '../players/Player';
  */
 class Fresher extends Ghost {
 
-  // static config = {
-  //     spriteKey: 'Ghost.Fresher',
-  //     x: 0,
-  //     y: 0
-  // };
+  constructor(player: Player, options: GhostOptions) {
+    super(player, Object.assign({ //默认配置
+      // game: game, 
+      // x: 100, y: 100, key: 'Ghost.Fresher', frame: 'normal',
+      shadow: {
+        x: -70, y: -72,
+        // x: 0, y: 0,
+        key: 'GhostFresher',
+        frame: 'normal'
+      },
+      speed: Ghost.defaultRate * 0.6,
+      lifeOptions: {
+        offset: { x: -30, y: -35 }
+      },
+      // anchor: { x: 0, y: 0 },
+      anchor: { x: 0.9, y: 1.1 },
+      bodySize: { width: 59, height: 75, offsetX: 0, offsetY: 0 }
+      // bodySize: { width: 150, height: 150, offsetX: 0, offsetY: 0 }
+    }, options));
 
-  // constructor(game: Phaser.Game, player: Player) {
-  //   super(game, 0, 0, 'Ghost.Fresher');
-  //   //test
-  //   this.game.physics.arcade.enable(this);
-  //   // this.body.velocity.set(0, 0);
-  //   // this.body.moveTo(2000, 1000, 45);
-  //   this.game.physics.arcade.moveToObject(this, player.sprite, 120);
-
-  //   this.update = () => {
-  //     console.log('----fresher update');
-  //     this.game.physics.arcade.overlap(player.sprite, this, () => {
-  //       // this.fresher.sprite.body.stopMovement(true);
-  //       this.body.velocity.set(0);
-  //     });
-  //   };
-  // }
-
-  player: Player;
-
-  constructor(game: Phaser.Game, player: Player) {
-    super(game, game.world.randomX, game.world.randomY, 'Ghost.Fresher');
-    this.player = player;
+    //初始动画
+    // this.play('normal');
+    this.playUpdown();
+console.log('----fresher', this);
+    // super(game, game.world.randomX, game.world.randomY, 'Ghost.Fresher');
     //test
     // this.game.physics.arcade.moveToObject(this, player.body, 300);
-    this.game.physics.arcade.accelerateToObject(this, player, 200);
+    // this.game.physics.arcade.accelerateToObject(this, player, 200);
     
   }
 
-  update() {
-    console.log('------fresher update');
-    // this.game.physics.arcade.overlap(this, this.player, () => {
-    //   console.log('-----fresher overlap');
-    //   this.body.velocity.setTo(0);
-    //   // this.kill();
-    //   // this.destroy();
-    // });
-    this.game.physics.arcade.collide(this, this.player, () => {
-      console.log('-----fresher collide');
-      this.body.acceleration.setTo(0);
-      this.body.velocity.setTo(0);
+  onBeforeMarch() {
+    this.getTween('updown').start();
+    // return false;
+  }
+  onAfterMarch() {
+    this.getTween('updown').pause();
+  }
+
+  onBeforeAttack() {
+    this.game.audio.playEffect('fresher-attack-disappear');
+    this.shadow.play('attack');
+  }
+  onAfterAttack() {
+    this.alive = false; //直接静默式地死亡(不摧毁，后面手动摧毁)
+    console.log('-----onAfterAttack');
+    this.game.time.events.add(Phaser.Timer.HALF, () => { //等半秒后再消失摧毁
+      console.log('-----not occur');
+      this.playTween('disappear').onComplete.addOnce(() => this.destruct());
     });
+  }
+
+  onBeforeHurt() {
+    super.onBeforeHurt();
+    return this.exPlay('hurt', true);
+  }
+
+  onBeforeDie() {
+    super.onBeforeDie();
+    return this.exPlay('die', true);
   }
   
   initializeAnimations() {
-    let animations = this.animations, frameRate = Ghost.defaultRate;
+    let animations = this.shadow.animations, frameRate = Ghost.defaultRate;
     //normal
     animations.add('normal', ['normal']);
     //attack
@@ -65,23 +78,20 @@ class Fresher extends Ghost {
     //hurt
     let hurt = animations.add('hurt', Utils.concatRepeat([], 'hurt/1', 4, 'hurt/2', 5, 'hurt/3', 5, 'hurt/4', 5, 'hurt/5', 21), frameRate);
     hurt.onComplete.add(() => animations.play('normal'));
-
-    //test
-    setTimeout(() => animations.play('attack'), 2000);
-    setTimeout(() => animations.play('hurt'), 2000 * 2);
-    // setTimeout(() => this.kill(), 2000 * 3);
-    // setTimeout(() => disappear.start(), 2000 * 4);
+    //die
+    animations.add('die', Utils.concatRepeat([], 'die/1', 4, 'die/2', 5, 'die/3', 5, 'die/4', 5, 'die/5', 5, 'die/6', 5, 'die/7', 5, 'die/8', 5), frameRate);
+    //disappear（攻击完毕后消失）
+    this.createTween('disappear', true).to({ alpha: 0 }, 1000, 'Linear', false);
+    //updown上下游荡
+    let shadowY = this.shadow.y;
+    this.createTween('updown', true)
+      .to({ y: shadowY - 5 }, 500).to({ y: shadowY }, 500)
+      .to({ y: shadowY + 5 }, 500).to({ y: shadowY }, 500)
+      .loop();
   }
 
-  // //执行死亡
-  // kill() {
-  //   let disappear = this.game.add.tween(this).to({ alpha: 0 }, 1000, 'Linear', true);
-  //   disappear.onComplete.addOnce(() => {
-  //     this.game.tweens.remove(disappear);
-  //     // this.kill();
-  //     this.destroy();
-  //   });
-  // }
+  playUpdown() { this.getTween('updown').start(); }
+  stopUpdown() { this.getTween('updown').pause(); }
 
 }
 

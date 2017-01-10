@@ -204,6 +204,14 @@
             <key type="filename">fixed-images/attack/5.png</key>
             <key type="filename">fixed-images/attack/6.png</key>
             <key type="filename">fixed-images/attack/7.png</key>
+            <key type="filename">fixed-images/die/1.png</key>
+            <key type="filename">fixed-images/die/2.png</key>
+            <key type="filename">fixed-images/die/3.png</key>
+            <key type="filename">fixed-images/die/4.png</key>
+            <key type="filename">fixed-images/die/5.png</key>
+            <key type="filename">fixed-images/die/6.png</key>
+            <key type="filename">fixed-images/die/7.png</key>
+            <key type="filename">fixed-images/die/8.png</key>
             <key type="filename">fixed-images/hurt/1.png</key>
             <key type="filename">fixed-images/hurt/2.png</key>
             <key type="filename">fixed-images/hurt/3.png</key>

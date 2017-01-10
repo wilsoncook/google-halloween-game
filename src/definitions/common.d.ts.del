@@ -1,5 +1,0 @@
-/**
- * 通用定义
- */
-
-declare class Player {}

@@ -1,29 +1,41 @@
+import AudioManager from './lib/AudioManager';
 //基本场景
-import { Boot } from './states/Boot';
-import { Preloader } from './states/Preloader';
-//引入关卡
-import { GameLevelOne } from './game-levels/GameLevelOne';
+import Boot from './states/Boot';
+import Preloader from './states/Preloader';
+//引入关卡管理
+import GameLevel from './states/GameLevel';
+//主角
+import Player from './players/Player';
 
 /**
  * 游戏入口对象
  */
-export class Game {
+class Game extends Phaser.Game {
 
-  private game: Phaser.Game;
+  audio: AudioManager; //全局唯一的音效管理（将在Preloader处进行进一步初始化和加载）
 
   constructor() {
-    //游戏对象
-    this.game = new Phaser.Game(1024, 768, Phaser.AUTO, 'content');
+    super(640, 360, Phaser.AUTO, 'content');
+    // super(640, 600, Phaser.AUTO, 'content');
+    //音效管理
+    this.audio = new AudioManager(this);
     //基本场景
-    this.game.state.add('Boot', Boot);
-    this.game.state.add('Preloader', Preloader);
-    //游戏场景关卡
-    this.game.state.add('GameLevelOne', GameLevelOne);
+    this.state.add('Boot', Boot);
+    this.state.add('Preloader', Preloader);
+    //游戏关卡
+    this.state.add('GameLevel', GameLevel);
   }
 
   //开始游戏
   run() {
-    this.game.state.start('Boot');
+    this.state.start('Boot');
   }
 
+  // //析构所有游戏资源
+  // destruct() {
+  //   //TODO
+  // }
+
 }
+
+export default Game;
