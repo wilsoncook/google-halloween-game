@@ -60,11 +60,6 @@ class GameLevel extends State {
   render() {
     let pointer = this.game.input.activePointer, debug = this.game.debug;
     debug.text(`当前鼠标位置: ${pointer.x}, ${pointer.y}`, 10, 20, '0x000000');
-    // debug.bodyInfo(this.player, 15, 30);
-    //所有body
-    this.game.world.forEachAlive((child) => {
-      debug.body(child);
-    }, null);
     //调用关卡的render()
     if (this.currentLevel) { this.currentLevel.render(); }
   }
@@ -84,7 +79,7 @@ class GameLevel extends State {
       //设置player的攻击对象
       this.player.setGhostGroup(this.currentLevel.ghosts);
       //场景切换，过场动画
-      await this.playCutscene();
+      // await this.playCutscene();
       //创建ghosts
       this.currentLevel.setupGhosts();
     }

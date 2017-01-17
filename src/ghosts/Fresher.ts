@@ -12,25 +12,25 @@ class Fresher extends Ghost {
       // game: game, 
       // x: 100, y: 100, key: 'Ghost.Fresher', frame: 'normal',
       shadow: {
-        x: -70, y: -72,
+        x: -75, y: -75,
         // x: 0, y: 0,
         key: 'GhostFresher',
         frame: 'normal'
       },
       speed: Ghost.defaultRate * 0.6,
-      lifeOptions: {
-        offset: { x: -30, y: -35 }
-      },
+      // lifeOptions: {
+      //   offset: { x: -30, y: -35 }
+      // },
       // anchor: { x: 0, y: 0 },
-      anchor: { x: 0.9, y: 1.1 },
+      // anchor: { x: 0.9, y: 1.1 },
       bodySize: { width: 59, height: 75, offsetX: 0, offsetY: 0 }
       // bodySize: { width: 150, height: 150, offsetX: 0, offsetY: 0 }
     }, options));
 
     //初始动画
     // this.play('normal');
-    this.playUpdown();
-console.log('----fresher', this);
+//     this.playUpdown();
+// console.log('----fresher', this);
     // super(game, game.world.randomX, game.world.randomY, 'Ghost.Fresher');
     //test
     // this.game.physics.arcade.moveToObject(this, player.body, 300);
@@ -39,11 +39,10 @@ console.log('----fresher', this);
   }
 
   onBeforeMarch() {
-    this.getTween('updown').start();
-    // return false;
+    this.playUpdown();
   }
   onAfterMarch() {
-    this.getTween('updown').pause();
+    this.stopUpdown();
   }
 
   onBeforeAttack() {

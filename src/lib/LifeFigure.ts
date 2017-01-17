@@ -13,10 +13,10 @@ export class LifeFigure {
   constructor(ghost: Ghost, lifeValues: LifeFigureValue[], options?: LifeFigureOptions) {
     this.ghost = ghost;
     this.options = Object.assign({
-      offset: { //起始点相对位置（默认考虑了anchor的位置偏移）
-        x: - (this.ghost.body.width * this.ghost.anchor.x),
-        y: - (this.ghost.body.height * this.ghost.anchor.y)
-      }
+      // offset: { //起始点相对位置（默认考虑了anchor的位置偏移）
+      //   x: - (this.ghost.body.width * this.ghost.anchor.x),
+      //   y: - (this.ghost.body.height * this.ghost.anchor.y)
+      // }
     }, options);
     //在ghost头顶按顺序创建血块图像
     let create = this.ghost.game.add;
@@ -32,13 +32,14 @@ export class LifeFigure {
   //重新排列figures图像位置
   private arrangeFigures() {
     let
-      anchorOffset = { x: this.options.offset.x, y: this.options.offset.y }, //ghost使用anchor后，需要调整的offset
+      flipHorizontal = this.ghost.options.flipHorizontal, figureWidth = 26, figureHeight = 24,
+      startPos = flipHorizontal ? this.ghost.getBodyTopRight(-figureWidth, -figureHeight) : this.ghost.getBodyTopLeft(0, -figureHeight), //起始点位置
       offsetX = 0; //累加x坐标
     console.log('--arrangeFigures', this.ghost.body.width, this.ghost.anchor.x, this.ghost.body.height, this.ghost.anchor.y);
     this.figureDatas.forEach((data) => {
-      data.image.x = anchorOffset.x + offsetX;
-      data.image.y = anchorOffset.y - 24;
-      offsetX += 26; //向右继续排列
+      data.image.x = startPos.x + offsetX;
+      data.image.y = startPos.y;
+      offsetX += flipHorizontal ? -figureWidth : figureWidth; //向右 或 左继续排列
     });
   }
 
@@ -78,7 +79,8 @@ interface FigureData {
 }
 
 export interface LifeFigureOptions {
-  offset?: { x: number, y: number }; //图像的初始显示位置
+  // flipHorizontal: boolean; //是否水平翻转 - 从左上角到右上角依次显示（否则是反方向: 从右上角到左上角依次显示） [该选项直接在SpriteOptions中获取]
+  // offset?: { x: number, y: number }; //图像的初始显示位置
 }
 
 export default LifeFigure;

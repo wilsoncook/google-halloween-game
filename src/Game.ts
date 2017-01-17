@@ -15,8 +15,8 @@ class Game extends Phaser.Game {
   audio: AudioManager; //全局唯一的音效管理（将在Preloader处进行进一步初始化和加载）
 
   constructor() {
-    super(640, 360, Phaser.AUTO, 'content');
-    // super(640, 600, Phaser.AUTO, 'content');
+    // super(640, 360, Phaser.AUTO, 'content');
+    super(1000, 360, Phaser.AUTO, 'content');
     //音效管理
     this.audio = new AudioManager(this);
     //基本场景

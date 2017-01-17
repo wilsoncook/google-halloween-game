@@ -14,22 +14,35 @@ abstract class Sprite extends Phaser.Sprite {
   private collisionQueue: CollisionQueue = new Map(); //碰撞检测队列（用于update时进行碰撞检测）
 
   protected tweens: Tweens = {}; //补间动画键值对
-  protected shadow: Phaser.Sprite; //镜像精灵（当options.shadow存在时有效）
   protected speed: number; //移动速度（用于moveTo等）
+
+  public options: SpriteOptions;
+  public shadow: Phaser.Sprite; //镜像精灵（当options.shadow存在时有效）
 
   constructor(options: SpriteOptions) {
     super(options.game, options.x, options.y, options.key, options.frame);
+
     //初始化基本属性
+    this.options = options;
     this.health = this.maxHealth = options.maxHealth;
     this.speed = options.speed || Sprite.defaultRate;
-    //默认基础点定位位置
-    let anchor = options.anchor || { x: 0.5, y: 0.5 }; //默认处于最中间
-    this.anchor.setTo(anchor.x, anchor.y);
+
     //初始化body
     this.game.physics.arcade.enable(this);
     if (options.bodySize) {
-      this.body.setSize(options.bodySize.width, options.bodySize.height, options.bodySize.offsetX, options.bodySize.offsetY);
+      this.body.setSize(options.bodySize.width, options.bodySize.height, options.bodySize.offsetX || 0, options.bodySize.offsetY || 0);
     }
+    // //默认基础点定位位置
+    // let anchor = options.anchor || { x: 0.5, y: 0.5 }; //默认处于最中间
+    // this.anchor.setTo(anchor.x, anchor.y);
+    
+    //确定定位点（位于body偏移后指定区域的正中心）
+    let 
+      bodyOffsetX = options.bodySize.offsetX || 0, bodyOffsetY = options.bodySize.offsetY,
+      anchorX = (this.body.width / 2 + bodyOffsetX) / this.width, anchorY = (this.body.height / 2 + bodyOffsetY) / this.height;
+    this.anchor.setTo(anchorX, anchorY);
+    
+    //添加到
     if (options.toStage) {
       this.game.stage.addChild(this);
     } else {
@@ -38,6 +51,11 @@ abstract class Sprite extends Phaser.Sprite {
     //创建镜像
     if (options.shadow) {
       this.shadow = <Phaser.Sprite>this.addChild(this.game.make.sprite(options.shadow.x || 0, options.shadow.y || 0, options.shadow.key, options.shadow.frame));
+      //水平翻转
+      if (options.flipHorizontal) {
+        this.shadow.width *= -1;
+        this.shadow.x -= this.shadow.width;
+      }
     }
     //动画初始化
     this.initializeAnimations();
@@ -114,6 +132,33 @@ abstract class Sprite extends Phaser.Sprite {
   | 工具函数
   ------------------------------------------------------------------
   */
+
+  //将该sprite的body内部的相对于左上角的坐标转换为相对于中心点的坐标（意即body中坐标系的原点在中心点处）
+  toBodyPos(x: number, y: number): Coordinate {
+    return { x: x - this.body.width / 2, y: y - this.body.height / 2 };
+  }
+
+  //获取相对于body的各个角的坐标
+  getBodyCorner(place: string, offsetX?: number, offsetY?: number): Coordinate {
+    let basePos = { x: 0, y: 0 };
+    switch (place) {
+      case 'top-left':
+        break;
+      case 'top-right':
+        basePos.x = this.body.width; break;
+      case 'bottom-left':
+        basePos.y = this.body.height; break;
+      case 'bottom-right':
+        basePos.x = this.body.width, basePos.y = this.body.height; break;
+    }
+    if ('number' === typeof offsetX) { basePos.x += offsetX; }
+    if ('number' === typeof offsetY) { basePos.y += offsetY; }
+    return this.toBodyPos(basePos.x, basePos.y);
+  }
+  getBodyTopLeft(offsetX?: number, offsetY?: number): Coordinate { return this.getBodyCorner('top-left', offsetX, offsetY); }
+  getBodyTopRight(offsetX?: number, offsetY?: number): Coordinate { return this.getBodyCorner('top-right', offsetX, offsetY); }
+  getBodyBottomLeft(offsetX?: number, offsetY?: number): Coordinate { return this.getBodyCorner('bottom-left', offsetX, offsetY); }
+  getBodyBottomRight(offsetX?: number, offsetY?: number): Coordinate { return this.getBodyCorner('bottom-right', offsetX, offsetY); }
 
   //移动到某个精灵对象或点
   moveTo(target: Sprite|Coordinate, speed: number = this.speed) {
@@ -238,29 +283,29 @@ export interface Tweens {
 interface SpriteOptions {
   //用于sprite初始化的参数
   game?: Phaser.Game;
-  x?: number, y?: number;
+
+  x?: number; y?: number;
   key?: string; //指定texture名
   frame?: string | number;
+
   //特有配置项
   speed?: number; //移动速度（默认为Sprite.defaultRate）
   toStage?: boolean; //是否创建到stage对象上（将用于跨state）
   shadow?: { //是否创建一个精灵镜像（该镜像可专用于展示动画而不影响精灵本身，镜像将作为其孩子，可通过shadow属性访问）
-    x?: number; //相对父sprite的坐标位置（默认＝0）
-    y?: number;
+    x?: number; y?: number; //相对父sprite的坐标位置（默认＝0）
     key?: string; //指定texture名
     frame?: string | number;
   };
+  flipHorizontal?: boolean; //该sprite内的孩子是否进行水平翻转（该设置会影响shadow及其他孩子）【注】仅影响其下孩子，该sprite本身不会被翻转
   maxHealth?: number; //该精灵最大生命值（对ghost无意义，因为它用的是其他初始化方式）
   bodySize?: { //用于碰撞检测的body的尺寸和偏移量，用于body.setSize()
-    width: number;
-    height: number;
-    offsetX: number;
-    offsetY: number;
+    width: number; height: number;
+    offsetX?: number; offsetY?: number; //相对原图的偏移量
   };
-  anchor?: { //指定原点位置倍数，默认为（0.5,0.5）
-    x: number;
-    y: number;
-  }
+  // anchor?: { //指定原点位置倍数，默认为（0.5,0.5）
+  //   x: number;
+  //   y: number;
+  // }
 }
 
 export default Sprite;

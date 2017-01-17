@@ -31,7 +31,7 @@ module.exports = {
       // { test: /pixi\.js/, loader: 'expose?PIXI' },
       // { test: /phaser-split\.js$/, loader: 'expose?Phaser' },
       // { test: /p2\.js/, loader: 'expose?p2' },
-      { test: /\.ts?$/, loader: 'ts', exclude: '/node_modules' }
+      { test: /\.ts?$/, loader: 'ts', exclude: './node_modules' }
     ]
   },
   resolve: {

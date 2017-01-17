@@ -16,12 +16,13 @@ class Player extends Sprite {
       x: game.width / 2, y: game.height / 2,
       // x: 0, y: 0,
       key: 'Player', maxHealth: 4, speed: Player.defaultRate * 6,
+      // bodySize: { width: 87, height: 74 }
       bodySize: { width: 87, height: 74, offsetX: 44, offsetY: 76 }
       // bodySize: { width: 190, height: 170, offsetX: 0, offsetY: 0 }
     });
     // this.body.immovable = true;
-    //位置调整
-    this.anchor.setTo(0.46, 0.65);
+    // //位置调整
+    // this.anchor.setTo(0.46, 0.65);
     //创建画板
     this.pallete = this.createPallete();
     //播放初始动画
