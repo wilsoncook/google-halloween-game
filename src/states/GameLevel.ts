@@ -79,7 +79,7 @@ class GameLevel extends State {
       //设置player的攻击对象
       this.player.setGhostGroup(this.currentLevel.ghosts);
       //场景切换，过场动画
-      // await this.playCutscene();
+      await this.playCutscene();
       //创建ghosts
       this.currentLevel.setupGhosts();
     }
